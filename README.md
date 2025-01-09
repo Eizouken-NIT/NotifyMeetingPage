@@ -29,6 +29,8 @@ markdown内の変数を説明します。
   対応しているのは以下のブロックです。  
   - paragraph
   - bulleted_list_item
+    
+  非対応のブロックはplain textのみ返します。
 
   # 使用方法
   APIキーなどはApps Scriptのスクリプト プロパティに記載してください。
