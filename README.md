@@ -1,5 +1,5 @@
 # NotifyMeetingPage
-Notify Notion page Contents with webhook.
+Notify Notion page contents with webhook.
 
 # 概要
 ## 構成
