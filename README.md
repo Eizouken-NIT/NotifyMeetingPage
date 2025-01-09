@@ -24,9 +24,8 @@ markdown内の変数を説明します。
 - `pageLocation`  
   Notionページの`場所`プロパティ
 - `contentBlocks`  
-  `活動内容`というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
+  `活動内容`というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック  
   ないのであれば`null`です。
-
-対応しているのは以下のブロックです。  
-- paragraph
-- bulleted_list_item
+  対応しているのは以下のブロックです。  
+  - paragraph
+  - bulleted_list_item
