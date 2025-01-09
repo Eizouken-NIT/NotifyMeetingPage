@@ -22,8 +22,9 @@ Notionページの`名前`プロパティ
 - `pageLocation`
 Notionページの`場所`プロパティ
 - `contentBlocks`
-"活動内容"というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
-ないのであれば`null`です
+`活動内容`というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
+ないのであれば`null`です。
+  
 対応しているのは
 ‐ paragraph
 - bulleted_list_item
