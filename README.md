@@ -1,9 +1,10 @@
 # NotifyMeetingPage
 Notify Notion page Contents with webhook.
-  
+
 # 概要
 ## 構成
 特定のNotionデータベースに、日付プロパティが今日のページがあったら、webhookを使用して任意のアプリケーションにページ内容を記したmarkdownでリクエストを送信します。
+
 ## 用途
 私たちの部活動では毎週の部集会の告知の通知に使用しています。
 
@@ -13,19 +14,19 @@ Notify Notion page Contents with webhook.
 - Discord webhook
 
 # 仕組み
-送信するmarkdownはコードを見てください。
-markdown内の変数を説明します。
-- `today`
-今日の日付
-- `pageName`
-Notionページの`名前`プロパティ
-- `pageLocation`
-Notionページの`場所`プロパティ
-- `contentBlocks`
-`活動内容`というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
-ないのであれば`null`です。
+送信するmarkdownはコードを見てください。  
   
-対応しているのは
-‐ paragraph
+markdown内の変数を説明します。  
+- `today`  
+  今日の日付
+- `pageName`  
+  Notionページの`名前`プロパティ
+- `pageLocation`  
+  Notionページの`場所`プロパティ
+- `contentBlocks`  
+  `活動内容`というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
+  ないのであれば`null`です。
+
+対応しているのは以下のブロックです：  
+- paragraph
 - bulleted_list_item
-ブロックです。
