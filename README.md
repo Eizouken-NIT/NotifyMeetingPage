@@ -14,8 +14,10 @@ Notify Notion page contents with webhook.
 - Discord webhook
 
 # 仕組み
-送信するmarkdownは、  
-- 火曜日の12:00-13:00（部活動が毎週火曜日なので）orそれ以外で日付プロパティが今日のページがある場合  
+## 送信するmarkdown
+
+- 火曜日の12:00-13:00（部活動が毎週火曜日なので）orそれ以外で日付プロパティが今日のページがある場合
+
 ```markdown:message.md
 @everyone
 # 📅 今日 ${today}の予定
@@ -27,28 +29,46 @@ ${pageLocation}
 ${contentBlocks.join('\n')}
 ## 📌 詳細は[こちら](https://www.notion.so/${pageId.replace(/-/g, '')})
 よろしくお願いします！
+```  
+をDISCORD_WEBHOOK_URL_SCに送信
+
+- 火曜日の14:00-15:00の場合
+
+```markdown:message.md
+@everyone 
+リマインドです！今日は${pageName}があります！
+詳細は上のメッセージをご覧ください。
 ```
-をDISCORD_WEBHOOK_URL_SCに送信  
-
-
-火曜日の14:00-15:00の場合
+をDISCORD_WEBHOOK_URL_SCに送信
   
-markdown内の変数を説明します。  
-- `today`  
-  今日の日付
-- `pageName`  
-  Notionページの`名前`プロパティ
-- `pageLocation`  
-  Notionページの`場所`プロパティ
-- `contentBlocks`  
-  `活動内容`というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック  
-  ないのであれば`null`です。
-  対応しているのは以下のブロックです。  
-  - paragraph
-  - bulleted_list_item
-    
-  非対応のブロックはplain textのみ返します。
+- 手動呼び出しなのに今日のページが存在しない場合
 
-  # 使用方法
-  APIキーなどはApps Scriptのスクリプト プロパティに記載してください。
-  `PropertiesService.getScriptProperties().getProperty("NOTION_API_KEY");`であればプロパティに`NOTION_API_KEY`を入力、値に実際のAPIキーを入力してください。
+```markdown:message.md
+@everyone 手動呼び出しだけど今日の予定がないよ！大丈夫？
+```
+をDISCORD_WEBHOOK_URL_NTに送信
+
+  
+## markdown内の変数の説明
+
+- `today`
+今日の日付  
+  
+- `pageName`  
+Notionページの名前プロパティ  
+  
+- `pageLocation`  
+Notionページの場所プロパティ  
+  
+- `contentBlocks`  
+活動内容というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
+ないのであればnullです。
+  
+対応しているのは以下のブロックです。  
+- paragraph
+- bulleted_list_item  
+非対応のブロックはplain textのみ返します。  
+  
+使用方法
+APIキーなどはApps Scriptのスクリプト プロパティに記載してください。
+PropertiesService.getScriptProperties().getProperty("NOTION_API_KEY");であればプロパティにNOTION_API_KEYを入力、値に実際のAPIキーを入力してください。
