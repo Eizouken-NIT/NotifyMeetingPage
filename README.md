@@ -73,12 +73,11 @@ Notionページの場所プロパティ
 - `contentBlocks`  
 活動内容というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック  
   ないのであればnullです。
-  
   対応しているのは以下のブロックです。  
   - `paragraph`
   - `bulleted_list_item`  
 
-非対応のブロックはplain textのみ返します。  
+  非対応のブロックはplain textのみ返します。  
   
 # 使用方法
 APIキーなどはApps Scriptのスクリプト プロパティに記載してください。
