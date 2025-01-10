@@ -30,13 +30,13 @@ ${contentBlocks.join('\n')}
 ## 📌 詳細は[こちら](https://www.notion.so/${pageId.replace(/-/g, '')})
 よろしくお願いします！
 ```  
-をDISCORD_WEBHOOK_URL_SCに送信  
+をDISCORD_SC_WEBHOOK_URLに送信  
 
 - 火曜日の12:00-13:00でページがない場合
 ```markdown:message.md
 @everyone 火曜日だけど今日の予定がないよ！大丈夫？
 ```
-をDISCORD_WEBHOOK_URL_NTに送信  
+をDISCORD_NT_WEBHOOK_URLに送信  
   
 - 火曜日の14:00-15:00でページがある場合
 ```markdown:message.md
@@ -44,19 +44,19 @@ ${contentBlocks.join('\n')}
 リマインドです！今日は${pageName}があります！
 詳細は上のメッセージをご覧ください。
 ```
-をDISCORD_WEBHOOK_URL_SCに送信  
+をDISCORD_SC_WEBHOOK_URLに送信  
 
 - 火曜日の14:00-15:00でページがない場合
 ```markdown:message.md
 @everyone 今日の予定はありません！
 ```
-をDISCORD_WEBHOOK_URL_SCに送信  
+をDISCORD_SC_WEBHOOK_URLに送信  
   
 - 手動呼び出しなのに今日のページが存在しない場合
 ```markdown:message.md
 @everyone 手動呼び出しだけど今日の予定がないよ！大丈夫？
 ```
-をDISCORD_WEBHOOK_URL_NTに送信
+をDISCORD_NT_WEBHOOK_URLに送信
 
   
 ## markdown内の変数の説明
