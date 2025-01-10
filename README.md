@@ -30,19 +30,29 @@ ${contentBlocks.join('\n')}
 ## 📌 詳細は[こちら](https://www.notion.so/${pageId.replace(/-/g, '')})
 よろしくお願いします！
 ```  
-をDISCORD_WEBHOOK_URL_SCに送信
+をDISCORD_WEBHOOK_URL_SCに送信  
 
-- 火曜日の14:00-15:00の場合
-
+- 火曜日の12:00-13:00でページがない場合
+```markdown:message.md
+@everyone 火曜日だけど今日の予定がないよ！大丈夫？
+```
+をDISCORD_WEBHOOK_URL_NTに送信  
+  
+- 火曜日の14:00-15:00でページがある場合
 ```markdown:message.md
 @everyone 
 リマインドです！今日は${pageName}があります！
 詳細は上のメッセージをご覧ください。
 ```
-をDISCORD_WEBHOOK_URL_SCに送信
+をDISCORD_WEBHOOK_URL_SCに送信  
+
+- 火曜日の14:00-15:00でページがない場合
+```markdown:message.md
+@everyone 今日の予定はありません！
+```
+をDISCORD_WEBHOOK_URL_SCに送信  
   
 - 手動呼び出しなのに今日のページが存在しない場合
-
 ```markdown:message.md
 @everyone 手動呼び出しだけど今日の予定がないよ！大丈夫？
 ```
@@ -69,6 +79,6 @@ Notionページの場所プロパティ
 - bulleted_list_item  
 非対応のブロックはplain textのみ返します。  
   
-使用方法
+# 使用方法
 APIキーなどはApps Scriptのスクリプト プロパティに記載してください。
 PropertiesService.getScriptProperties().getProperty("NOTION_API_KEY");であればプロパティにNOTION_API_KEYを入力、値に実際のAPIキーを入力してください。
