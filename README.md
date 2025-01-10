@@ -74,9 +74,9 @@ Notionページの場所プロパティ
 活動内容というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック  
   ないのであればnullです。
   
-対応しているのは以下のブロックです。  
-- `paragraph`
-- `bulleted_list_item`  
+  対応しているのは以下のブロックです。  
+  - `paragraph`
+  - `bulleted_list_item`  
 
 非対応のブロックはplain textのみ返します。  
   
