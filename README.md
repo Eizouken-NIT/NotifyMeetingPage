@@ -61,7 +61,7 @@ ${contentBlocks.join('\n')}
   
 ## markdown内の変数の説明
 
-- `today`
+- `today`  
 今日の日付  
   
 - `pageName`  
@@ -72,11 +72,12 @@ Notionページの場所プロパティ
   
 - `contentBlocks`  
 活動内容というh1ブロックが1ブロック目にあるなら、次のh1ブロックまでのブロック
+  
 ないのであればnullです。
   
 対応しているのは以下のブロックです。  
-- paragraph
-- bulleted_list_item  
+- `paragraph`
+- `bulleted_list_item`  
 非対応のブロックはplain textのみ返します。  
   
 # 使用方法
