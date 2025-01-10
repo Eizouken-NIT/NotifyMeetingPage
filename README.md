@@ -14,7 +14,24 @@ Notify Notion page contents with webhook.
 - Discord webhook
 
 # 仕組み
-送信するmarkdownはコードを見てください。  
+送信するmarkdownは、  
+- 火曜日の12:00-13:00（部活動が毎週火曜日なので）orそれ以外で日付プロパティが今日のページがある場合  
+```markdown:message.md
+@everyone
+# 📅 今日 ${today}の予定
+## 🔤 活動名
+${pageName}
+## 🚩 場所
+${pageLocation}
+## 📝 内容
+${contentBlocks.join('\n')}
+## 📌 詳細は[こちら](https://www.notion.so/${pageId.replace(/-/g, '')})
+よろしくお願いします！
+```
+をDISCORD_WEBHOOK_URL_SCに送信  
+
+
+火曜日の14:00-15:00の場合
   
 markdown内の変数を説明します。  
 - `today`  
