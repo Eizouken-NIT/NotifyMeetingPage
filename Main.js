@@ -104,5 +104,7 @@ ${contentBlocks.join('\n')}
     }
   } catch (error) {
     Logger.log(`Error in main function: ${error.message}`);
+    const message = `@everyone エラーが出たよ！: ${error.message}`;
+    sendDiscordMessage(DISCORD_NT_WEBHOOK_URL, message);
   }
 }
