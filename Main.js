@@ -108,3 +108,123 @@ ${contentBlocks.join('\n')}
     sendDiscordMessage(DISCORD_NT_WEBHOOK_URL, message);
   }
 }
+
+function getNow() {
+  // 現在の日時を取得
+  const now = new Date();
+  
+  // 時間を24時間形式で取得（例: 1230は12:30）
+  const hours = now.getHours().toString().padStart(2, '0');
+  const minutes = now.getMinutes().toString().padStart(2, '0');
+  const time = hours + minutes;  // 例: "1230"
+  const date = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"形式の今日の日付を取得
+  Logger.log(date)
+  // 曜日を取得
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const day = days[now.getDay()];  // 例: "Tuesday"
+  return { date, time, day };
+}
+// Notion APIでデータベースを検索
+function fetchNotionDatabase(databaseId, apiKey, date) {
+  const url = `https://api.notion.com/v1/databases/${databaseId}/query`;
+  const options = {
+    method: 'post',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'Notion-Version': '2022-06-28' // バージョンを指定
+    },
+    payload: JSON.stringify({
+      filter: {
+        property: '日付', // データベースのプロパティ名に一致させる
+        date: {
+          equals: date // 今日の日付
+        }
+      }
+    })
+  };
+  try {
+    // APIリクエストを送信
+    const response = UrlFetchApp.fetch(url, options);
+    // ステータスコードをログに出力
+    Logger.log('Response Code: ' + response.getResponseCode());
+    const data = JSON.parse(response.getContentText()); // レスポンスをパース
+    return data.results || []; // 結果を返す
+  } catch (error) {
+    Logger.log(`Error fetching database: ${error.message}`);
+    return []; // エラー時は空配列を返す
+  }
+}
+function fetchPageBlocks(pageId, apiKey) {
+  const url = `https://api.notion.com/v1/blocks/${pageId}/children`;
+  const options = {
+    method: 'get',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Notion-Version': '2022-06-28'
+    }
+  };
+  try {
+    const response = UrlFetchApp.fetch(url, options);
+    
+    // ステータスコードをログに出力
+    Logger.log('Response Code: ' + response.getResponseCode());
+    const data = JSON.parse(response);
+    return data.results || [];
+  } catch (error) {
+    Logger.log(`Error fetching page blocks: ${error.message}`);
+    return [];
+  }
+}
+// ブロック内容を収集
+function extractContentBlocks(blocks) {
+  let contentBlocks = [];
+  let capture = false;
+  for (const block of blocks) {
+    // ブロックの種類が heading_1 の場合
+    Logger.log(block.type)
+    text = '';
+    if (block.type === 'heading_1') {
+      text = block.heading_1.rich_text?.map(rt => rt.plain_text).join('') || '';
+      if (text === '活動内容') {
+        capture = true; // "活動内容" ブロックが見つかったらキャプチャ開始
+        continue; //'活動内容'ブロックは含まない
+      } else if (capture) {
+        break; // 次にheading_1 に到達したら終了（heading_1は含まない）
+      }
+    }
+    // テキストを収集
+    if (capture) {
+      
+      if (block.type === 'bulleted_list_item'){ // 箇条書きだったら
+        const bulletedText = block[block.type]?.rich_text?.map(rt => rt.plain_text).join('') || '';
+        text = '- ' + bulletedText;
+      } else {
+        text = block[block.type]?.rich_text?.map(rt => rt.plain_text).join('') || ''; // それ以外(paragraphも含む)なら文字だけ
+      }
+      if (text) {
+        contentBlocks.push(text);
+      } else contentBlocks.push('') // 改行を検出したら改行
+    }
+  }
+  Logger.log (contentBlocks)
+  return contentBlocks;
+}
+// Discordにメッセージを送信
+function sendDiscordMessage(url,content) {
+  const options = {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify({ content })
+  };
+  const response = UrlFetchApp.fetch(url, options);
+  // ステータスコードをログに出力
+    Logger.log('Discord Response Code: ' + response.getResponseCode());
+    const responseText = response.getContentText();
+    Logger.log('Discord Response Text: ' + responseText); // レスポンスの内容をログに出力
+  if (response.getResponseCode() === 204) {
+    Logger.log('Discordにメッセージを送信しました。');
+  } else {
+    throw exception('Discordのメッセージ送信に失敗しました: ${response.getResponseCode()}')
+  }
+}
