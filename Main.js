@@ -11,14 +11,17 @@ function main() {
     const DISCORD_NT_WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty("DISCORD_NT_WEBHOOK_URL"); //NOTIFICATION
 
     const today = getNow().date;
+    Logger.log(date);
     const time = getNow().time;
+    Logger.log(time);
     const day = getNow().day;
+    Logger.log(day);
 
+    const notionData = fetchNotionDatabase(DATABASE_ID, NOTION_API_KEY, today); //今日のページを取得
+    
     // 部集会の日の昼に呼ばれたなら
     if (time >= "1200" && time <= "1300" && day === "Tuesday"){
-    
-      // Notionデータベースを検索
-      const notionData = fetchNotionDatabase(DATABASE_ID, NOTION_API_KEY, today);
+      Logger.log('部集会の日の昼だね');
       if (notionData.length > 0) {
         const page = notionData[0]; // 最初のページを取得
         const pageName = page.properties.名前.title[0]?.plain_text || '不明';
@@ -50,7 +53,6 @@ ${contentBlocks.join('\n')}
 
     // 部集会直前のトリガー
     else if (time >= "1400" && time <= "1500" && day === "Tuesday") { 
-
       if (notionData.length > 0) {
         const page = notionData[0]; // 最初のページを取得
         const pageName = page.properties.名前.title[0]?.plain_text || '不明';
@@ -67,9 +69,6 @@ ${contentBlocks.join('\n')}
 
     //手動で呼び出された場合
     else { 
-
-      // Notionデータベースを検索
-      const notionData = fetchNotionDatabase(DATABASE_ID, NOTION_API_KEY, today);
       if (notionData.length > 0) {
         const page = notionData[0]; // 最初のページを取得
         const pageName = page.properties.名前.title[0]?.plain_text || '不明';
@@ -99,7 +98,8 @@ ${contentBlocks.join('\n')}
       }
     }
   } catch (error) {
-    Logger.log(`Error in main function: ${error.message}`);
+    Logger.log(`main catch ${error.message}`);
+    const DISCORD_NT_WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty("DISCORD_NT_WEBHOOK_URL"); //スコープ内で定義
     const message = `@everyone エラーが出たよ！: ${error.message}`;
     sendDiscordMessage(DISCORD_NT_WEBHOOK_URL, message);
   }
@@ -114,7 +114,6 @@ function getNow() {
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const time = hours + minutes;  // 例: "1230"
   const date = new Date().toISOString().split('T')[0]; // "YYYY-MM-DD"形式の今日の日付を取得
-  Logger.log(date)
   // 曜日を取得
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const day = days[now.getDay()];  // 例: "Tuesday"
