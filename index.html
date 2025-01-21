@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <h1>実行確認</h1>
+    <p>この操作を実行しますか？</p>
+    <button onclick="executeMain()">確認</button>
+    <div id="result"></div>
+    <script>
+      function executeMain() {
+        google.script.run.withSuccessHandler(updateResult).main();
+      }
+
+      function updateResult(output) {
+        document.getElementById("result").innerText = output;
+      }
+    </script>
+  </body>
+</html>
