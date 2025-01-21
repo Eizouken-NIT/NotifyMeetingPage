@@ -10,10 +10,11 @@
     <div id="result"></div>
     <script>
       function executeMain() {
+        console.log("Calling main function...");
         google.script.run.withSuccessHandler(updateResult).main();
       }
-
       function updateResult(output) {
+        console.log("Received output: " + output);
         document.getElementById("result").innerText = output;
       }
     </script>
