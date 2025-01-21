@@ -161,10 +161,8 @@ function fetchPageBlocks(pageId, apiKey) {
   };
   try {
     const response = UrlFetchApp.fetch(url, options);
-    
-    // ステータスコードをログに出力
     Logger.log('Response Code: ' + response.getResponseCode());
-    const data = JSON.parse(response);
+    const data = JSON.parse(response.getContentText());
     return data.results || [];
   } catch (error) {
     Logger.log(`Error fetching page blocks: ${error.message}`);
@@ -206,20 +204,21 @@ function extractContentBlocks(blocks) {
   return contentBlocks;
 }
 // Discordにメッセージを送信
-function sendDiscordMessage(url,content) {
+function sendDiscordMessage(url, content) {
   const options = {
     method: 'post',
     contentType: 'application/json',
     payload: JSON.stringify({ content })
   };
   const response = UrlFetchApp.fetch(url, options);
-  // ステータスコードをログに出力
-    Logger.log('Discord Response Code: ' + response.getResponseCode());
-    const responseText = response.getContentText();
-    Logger.log('Discord Response Text: ' + responseText); // レスポンスの内容をログに出力
+  Logger.log('Discord Response Code: ' + response.getResponseCode());
+  const responseText = response.getContentText();
+  Logger.log('Discord Response Text: ' + responseText);
+
   if (response.getResponseCode() === 204) {
     Logger.log('Discordにメッセージを送信しました。');
   } else {
-    throw exception('Discordのメッセージ送信に失敗しました: ${response.getResponseCode()}')
+    // throw exception(...) を throw new Error(...) に修正
+    throw new Error(`Discordのメッセージ送信に失敗しました: ${response.getResponseCode()}`);
   }
 }
