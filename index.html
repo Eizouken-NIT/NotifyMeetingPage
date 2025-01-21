@@ -13,9 +13,16 @@
         console.log("Calling main function...");
         google.script.run.withSuccessHandler(updateResult).main();
       }
+
       function updateResult(output) {
         console.log("Received output: " + output);
-        document.getElementById("result").innerText = output;
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = ""; // Clear previous results
+        output.forEach(function(item) {
+          const div = document.createElement("div");
+          div.append(item);
+          resultDiv.appendChild(div);
+        });
       }
     </script>
   </body>
