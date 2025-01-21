@@ -11,7 +11,7 @@ function main() {
     const DISCORD_NT_WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty("DISCORD_NT_WEBHOOK_URL"); //NOTIFICATION
 
     const today = getNow().date;
-    Logger.log(date);
+    Logger.log(today);
     const time = getNow().time;
     Logger.log(time);
     const day = getNow().day;
@@ -99,7 +99,7 @@ ${contentBlocks.join('\n')}
     }
   } catch (error) {
     Logger.log(`main catch ${error.message}`);
-    const DISCORD_NT_WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty("DISCORD_NT_WEBHOOK_URL"); //スコープ内で定義
+    const DISCORD_NT_WEBHOOK_URL = PropertiesService.getScriptProperties().getProperty("DISCORD_NT_WEBHOOK_URL"); //NOTIFICATION
     const message = `@everyone エラーが出たよ！: ${error.message}`;
     sendDiscordMessage(DISCORD_NT_WEBHOOK_URL, message);
   }
