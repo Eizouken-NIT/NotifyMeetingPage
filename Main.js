@@ -53,6 +53,7 @@ ${contentBlocks.join('\n')}
 
     // 部集会直前のトリガー
     else if (time >= "1400" && time <= "1500" && day === "Tuesday") { 
+      Logger.log('部集会直前だね');
       if (notionData.length > 0) {
         const page = notionData[0]; // 最初のページを取得
         const pageName = page.properties.名前.title[0]?.plain_text || '不明';
@@ -69,6 +70,7 @@ ${contentBlocks.join('\n')}
 
     //手動で呼び出された場合
     else { 
+      Logger.log('手動呼び出しだね');
       if (notionData.length > 0) {
         const page = notionData[0]; // 最初のページを取得
         const pageName = page.properties.名前.title[0]?.plain_text || '不明';
