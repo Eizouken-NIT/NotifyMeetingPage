@@ -1,7 +1,5 @@
 function doGet() {
-    main();
     return HtmlService.createHtmlOutputFromFile('index');
-    return HtmlService.createHtmlOutputFromFile('complete');
 }
 
 function main() {
