@@ -1,6 +1,7 @@
 function doGet() {
     main();
-    return ContentService.createTextOutput("実行が完了しました。");
+    return HtmlService.createHtmlOutputFromFile('index');
+    return HtmlService.createHtmlOutputFromFile('complete');
 }
 
 function main() {
