@@ -82,3 +82,11 @@ Notionページの場所プロパティ
 # 使用方法
 APIキーなどはApps Scriptのスクリプト プロパティに記載してください。
 PropertiesService.getScriptProperties().getProperty("NOTION_API_KEY");であればプロパティにNOTION_API_KEYを入力、値に実際のAPIキーを入力してください。
+
+# features
+- [x] 毎週の部集会の通知
+- [x] 毎週の部集会の予定なし通知 
+- [ ] それ以外のイレギュラーイベントの通知（開始時刻n分前通知->定期的なAPIコールでの監視が必要）
+- [ ] 任意のタイミングでの通知
+- [ ] Webコンソールでの設定（毎週通知の一時停止など）の実装
+
